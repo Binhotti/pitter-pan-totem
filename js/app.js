@@ -25,6 +25,8 @@ const progressScreens = [
   "summary"
 ];
 
+let finishTimeout = null;
+
 const elements = {
   screens: [...document.querySelectorAll(".screen")],
 
@@ -62,10 +64,6 @@ const elements = {
   newOrderButton: document.querySelector("#newOrderButton")
 };
 
-/**
- * Retorna todas as informações atuais necessárias
- * para gerar a ilustração do balão.
- */
 function getCurrentConfiguration() {
   return {
     modelId: state.modelId || APP_DATA.models[0].id,
@@ -76,14 +74,14 @@ function getCurrentConfiguration() {
   };
 }
 
-/**
- * Exibe uma tela e esconde todas as outras.
- */
 function showScreen(screenName) {
+  clearFinishTimeout();
+
   state.currentScreen = screenName;
 
   elements.screens.forEach((screen) => {
-    const isCurrentScreen = screen.dataset.screen === screenName;
+    const isCurrentScreen =
+      screen.dataset.screen === screenName;
 
     screen.classList.toggle(
       "screen--active",
@@ -94,7 +92,8 @@ function showScreen(screenName) {
   const isWelcome = screenName === "welcome";
   const isFinish = screenName === "finish";
 
-  const progressIndex = progressScreens.indexOf(screenName);
+  const progressIndex =
+    progressScreens.indexOf(screenName);
 
   elements.backButton.classList.toggle(
     "hidden",
@@ -122,11 +121,6 @@ function showScreen(screenName) {
       `${(currentStep / totalSteps) * 100}%`;
   }
 
-  /**
-   * Correção do problema do formato:
-   * sempre que entrar na personalização,
-   * redesenha o balão com o modelo selecionado.
-   */
   if (screenName === "customize") {
     syncControls();
     updatePreview(true);
@@ -136,43 +130,63 @@ function showScreen(screenName) {
     updateSummary();
   }
 
+  if (screenName === "finish") {
+    startFinishTimeout();
+  }
+
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
 }
 
-/**
- * Volta uma tela.
- */
+function startFinishTimeout() {
+  finishTimeout = setTimeout(() => {
+    returnToMenu();
+  }, 10000);
+}
+
+function clearFinishTimeout() {
+  if (finishTimeout) {
+    clearTimeout(finishTimeout);
+    finishTimeout = null;
+  }
+}
+
+function returnToMenu() {
+  clearFinishTimeout();
+  resetState();
+  showScreen("welcome");
+}
+
 function goBack() {
-  const currentIndex = screenOrder.indexOf(
-    state.currentScreen
-  );
+  const currentIndex =
+    screenOrder.indexOf(state.currentScreen);
 
   if (currentIndex > 0) {
-    showScreen(screenOrder[currentIndex - 1]);
+    showScreen(
+      screenOrder[currentIndex - 1]
+    );
   }
 }
 
-/**
- * Avança uma tela.
- */
 function goNext() {
-  const currentIndex = screenOrder.indexOf(
-    state.currentScreen
-  );
+  const currentIndex =
+    screenOrder.indexOf(state.currentScreen);
 
-  if (currentIndex < screenOrder.length - 1) {
-    showScreen(screenOrder[currentIndex + 1]);
+  if (
+    currentIndex <
+    screenOrder.length - 1
+  ) {
+    showScreen(
+      screenOrder[currentIndex + 1]
+    );
   }
 }
 
-/**
- * Cria um cartão de ocasião ou modelo.
- */
 function createOptionCard(item, type) {
-  const button = document.createElement("button");
+  const button =
+    document.createElement("button");
 
   button.type = "button";
   button.className = "option-card";
@@ -198,22 +212,22 @@ function createOptionCard(item, type) {
     </span>
   `;
 
-  button.addEventListener("click", () => {
-    if (type === "theme") {
-      selectTheme(item);
-    }
+  button.addEventListener(
+    "click",
+    () => {
+      if (type === "theme") {
+        selectTheme(item);
+      }
 
-    if (type === "model") {
-      selectModel(item);
+      if (type === "model") {
+        selectModel(item);
+      }
     }
-  });
+  );
 
   return button;
 }
 
-/**
- * Seleciona uma ocasião.
- */
 function selectTheme(theme) {
   state.themeId = theme.id;
 
@@ -222,28 +236,20 @@ function selectTheme(theme) {
     theme.id
   );
 
-  const nextButton = getNextButton("theme");
+  const nextButton =
+    getNextButton("theme");
 
   if (nextButton) {
     nextButton.disabled = false;
   }
 }
 
-/**
- * Seleciona um modelo de balão.
- */
 function selectModel(model) {
-  /**
-   * Primeiro atualizamos o modelo no estado.
-   * Isso evita que o render utilize o modelo anterior.
-   */
   state.modelId = model.id;
 
-  /**
-   * Define uma cor inicial apropriada para o modelo.
-   */
   if (model.id === "bubble") {
-    state.balloonColorId = "transparente";
+    state.balloonColorId =
+      "transparente";
   } else {
     state.balloonColorId =
       getClosestModelColor(model);
@@ -254,7 +260,8 @@ function selectModel(model) {
     model.id
   );
 
-  const nextButton = getNextButton("model");
+  const nextButton =
+    getNextButton("model");
 
   if (nextButton) {
     nextButton.disabled = false;
@@ -265,55 +272,39 @@ function selectModel(model) {
       model.name;
   }
 
-  /**
-   * Sincroniza as opções selecionadas.
-   */
   syncControls();
 
-  /**
-   * Atualiza imediatamente a prévia menor
-   * mostrada na tela de escolha do modelo.
-   */
   renderBalloon(
     elements.modelPreview,
     getCurrentConfiguration(),
     true
   );
 
-  /**
-   * Atualiza também a prévia principal.
-   *
-   * Assim, ao entrar na etapa de personalização,
-   * o formato correto já estará renderizado.
-   */
   updatePreview(true);
 }
 
-/**
- * Encontra a cor cadastrada mais próxima
- * da cor padrão do modelo.
- */
 function getClosestModelColor(model) {
   if (!model) {
     return "rosa";
   }
 
   const matchingColor =
-    APP_DATA.balloonColors.find((color) => {
-      return (
-        color.value.toLowerCase() ===
-        model.defaultColor.toLowerCase()
-      );
-    });
+    APP_DATA.balloonColors.find(
+      (color) => {
+        return (
+          color.value.toLowerCase() ===
+          model.defaultColor.toLowerCase()
+        );
+      }
+    );
 
   return matchingColor?.id || "rosa";
 }
 
-/**
- * Aplica visualmente a seleção em um conjunto
- * de cartões.
- */
-function selectCard(container, selectedId) {
+function selectCard(
+  container,
+  selectedId
+) {
   if (!container) return;
 
   container
@@ -329,55 +320,71 @@ function selectCard(container, selectedId) {
     });
 }
 
-/**
- * Busca o botão de continuar de uma tela.
- */
 function getNextButton(screenName) {
   return document.querySelector(
     `[data-screen="${screenName}"] [data-action="next"]`
   );
 }
 
-/**
- * Cria as opções iniciais do sistema.
- */
 function renderInitialOptions() {
-  APP_DATA.themes.forEach((theme) => {
-    const card = createOptionCard(
-      theme,
-      "theme"
-    );
+  APP_DATA.themes.forEach(
+    (theme) => {
+      const card =
+        createOptionCard(
+          theme,
+          "theme"
+        );
 
-    elements.themeGrid.appendChild(card);
-  });
+      elements.themeGrid.appendChild(
+        card
+      );
+    }
+  );
 
-  APP_DATA.models.forEach((model) => {
-    const card = createOptionCard(
-      model,
-      "model"
-    );
+  APP_DATA.models.forEach(
+    (model) => {
+      const card =
+        createOptionCard(
+          model,
+          "model"
+        );
 
-    elements.modelGrid.appendChild(card);
-  });
+      elements.modelGrid.appendChild(
+        card
+      );
+    }
+  );
 
-  APP_DATA.fonts.forEach((font) => {
-    const button = document.createElement("button");
+  APP_DATA.fonts.forEach(
+    (font) => {
+      const button =
+        document.createElement(
+          "button"
+        );
 
-    button.type = "button";
-    button.className = "font-button";
-    button.dataset.id = font.id;
-    button.style.fontFamily = font.family;
-    button.textContent = font.name;
+      button.type = "button";
+      button.className =
+        "font-button";
+      button.dataset.id = font.id;
+      button.style.fontFamily =
+        font.family;
+      button.textContent = font.name;
 
-    button.addEventListener("click", () => {
-      state.fontId = font.id;
+      button.addEventListener(
+        "click",
+        () => {
+          state.fontId = font.id;
 
-      syncControls();
-      updatePreview(true);
-    });
+          syncControls();
+          updatePreview(true);
+        }
+      );
 
-    elements.fontOptions.appendChild(button);
-  });
+      elements.fontOptions.appendChild(
+        button
+      );
+    }
+  );
 
   renderColorButtons(
     elements.balloonColorOptions,
@@ -392,16 +399,14 @@ function renderInitialOptions() {
   );
 }
 
-/**
- * Cria os botões circulares de cores.
- */
 function renderColorButtons(
   container,
   colors,
   type
 ) {
   colors.forEach((color) => {
-    const button = document.createElement("button");
+    const button =
+      document.createElement("button");
 
     button.type = "button";
     button.className = "color-button";
@@ -418,27 +423,28 @@ function renderColorButtons(
       color.value
     );
 
-    button.addEventListener("click", () => {
-      if (type === "balloon") {
-        state.balloonColorId = color.id;
-      }
+    button.addEventListener(
+      "click",
+      () => {
+        if (type === "balloon") {
+          state.balloonColorId =
+            color.id;
+        }
 
-      if (type === "text") {
-        state.textColorId = color.id;
-      }
+        if (type === "text") {
+          state.textColorId =
+            color.id;
+        }
 
-      syncControls();
-      updatePreview(true);
-    });
+        syncControls();
+        updatePreview(true);
+      }
+    );
 
     container.appendChild(button);
   });
 }
 
-/**
- * Sincroniza os controles da interface
- * com os valores salvos no estado.
- */
 function syncControls() {
   if (elements.messageInput) {
     elements.messageInput.value =
@@ -460,7 +466,8 @@ function syncControls() {
     .forEach((button) => {
       button.classList.toggle(
         "font-button--selected",
-        button.dataset.id === state.fontId
+        button.dataset.id ===
+          state.fontId
       );
     });
 
@@ -495,11 +502,12 @@ function syncControls() {
   }
 }
 
-/**
- * Atualiza a ilustração principal do balão.
- */
-function updatePreview(animate = false) {
-  if (!elements.balloonPreview) return;
+function updatePreview(
+  animate = false
+) {
+  if (!elements.balloonPreview) {
+    return;
+  }
 
   renderBalloon(
     elements.balloonPreview,
@@ -508,32 +516,37 @@ function updatePreview(animate = false) {
   );
 }
 
-/**
- * Preenche a tela de resumo.
- */
 function updateSummary() {
-  const theme = APP_DATA.themes.find(
-    (item) => item.id === state.themeId
-  );
+  const theme =
+    APP_DATA.themes.find(
+      (item) =>
+        item.id === state.themeId
+    );
 
-  const model = APP_DATA.models.find(
-    (item) => item.id === state.modelId
-  );
+  const model =
+    APP_DATA.models.find(
+      (item) =>
+        item.id === state.modelId
+    );
 
-  const font = APP_DATA.fonts.find(
-    (item) => item.id === state.fontId
-  );
+  const font =
+    APP_DATA.fonts.find(
+      (item) =>
+        item.id === state.fontId
+    );
 
   const balloonColor =
     APP_DATA.balloonColors.find(
       (item) =>
-        item.id === state.balloonColorId
+        item.id ===
+        state.balloonColorId
     );
 
   const textColor =
     APP_DATA.textColors.find(
       (item) =>
-        item.id === state.textColorId
+        item.id ===
+        state.textColorId
     );
 
   const total =
@@ -542,20 +555,24 @@ function updateSummary() {
 
   document.querySelector(
     "#summaryTheme"
-  ).textContent = theme?.name || "—";
+  ).textContent =
+    theme?.name || "—";
 
   document.querySelector(
     "#summaryModel"
-  ).textContent = model?.name || "—";
+  ).textContent =
+    model?.name || "—";
 
   document.querySelector(
     "#summaryMessage"
   ).textContent =
-    state.message.trim() || "Sem texto";
+    state.message.trim() ||
+    "Sem texto";
 
   document.querySelector(
     "#summaryFont"
-  ).textContent = font?.name || "—";
+  ).textContent =
+    font?.name || "—";
 
   document.querySelector(
     "#summaryBalloonColor"
@@ -569,11 +586,13 @@ function updateSummary() {
 
   document.querySelector(
     "#summaryQuantity"
-  ).textContent = String(state.quantity);
+  ).textContent =
+    String(state.quantity);
 
   document.querySelector(
     "#summaryPrice"
-  ).textContent = formatCurrency(total);
+  ).textContent =
+    formatCurrency(total);
 
   renderBalloon(
     elements.summaryPreview,
@@ -581,31 +600,36 @@ function updateSummary() {
   );
 }
 
-/**
- * Formata valores em reais.
- */
 function formatCurrency(value) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  }).format(value);
+  return new Intl.NumberFormat(
+    "pt-BR",
+    {
+      style: "currency",
+      currency: "BRL"
+    }
+  ).format(value);
 }
 
-/**
- * Reinicia o estado completo do sistema.
- */
 function resetState() {
   state.currentScreen = "welcome";
   state.themeId = null;
   state.modelId = null;
   state.message = "";
   state.fontId = "elegante";
-  state.balloonColorId = "transparente";
+  state.balloonColorId =
+    "transparente";
   state.textColorId = "preto";
   state.quantity = 1;
 
-  selectCard(elements.themeGrid, "");
-  selectCard(elements.modelGrid, "");
+  selectCard(
+    elements.themeGrid,
+    ""
+  );
+
+  selectCard(
+    elements.modelGrid,
+    ""
+  );
 
   const themeNextButton =
     getNextButton("theme");
@@ -622,7 +646,8 @@ function resetState() {
   }
 
   if (elements.modelPreview) {
-    elements.modelPreview.innerHTML = "";
+    elements.modelPreview.innerHTML =
+      "";
   }
 
   if (elements.modelPreviewName) {
@@ -634,14 +659,12 @@ function resetState() {
   updatePreview();
 }
 
-/**
- * Restaura apenas a personalização,
- * mantendo ocasião e modelo selecionados.
- */
 function resetCustomization() {
-  const model = APP_DATA.models.find(
-    (item) => item.id === state.modelId
-  );
+  const model =
+    APP_DATA.models.find(
+      (item) =>
+        item.id === state.modelId
+    );
 
   state.message = "";
   state.fontId = "elegante";
@@ -662,24 +685,21 @@ function resetCustomization() {
   updatePreview(true);
 }
 
-/**
- * Gera uma senha aleatória para o pedido.
- */
 function generateOrderCode() {
   const number =
-    Math.floor(Math.random() * 900) +
-    100;
+    Math.floor(
+      Math.random() * 900
+    ) + 100;
 
   return `A${number}`;
 }
 
-/**
- * Confirma o pedido e mostra a senha.
- */
 function confirmOrder() {
-  const model = APP_DATA.models.find(
-    (item) => item.id === state.modelId
-  );
+  const model =
+    APP_DATA.models.find(
+      (item) =>
+        item.id === state.modelId
+    );
 
   const total =
     (model?.basePrice || 0) *
@@ -687,7 +707,8 @@ function confirmOrder() {
 
   document.querySelector(
     "#orderCode"
-  ).textContent = generateOrderCode();
+  ).textContent =
+    generateOrderCode();
 
   document.querySelector(
     "#finishQuantity"
@@ -700,14 +721,12 @@ function confirmOrder() {
 
   document.querySelector(
     "#finishPrice"
-  ).textContent = formatCurrency(total);
+  ).textContent =
+    formatCurrency(total);
 
   showScreen("finish");
 }
 
-/**
- * Adiciona os eventos dos elementos da página.
- */
 function bindEvents() {
   elements.startButton.addEventListener(
     "click",
@@ -724,13 +743,14 @@ function bindEvents() {
   elements.restartButton.addEventListener(
     "click",
     () => {
-      resetState();
-      showScreen("welcome");
+      returnToMenu();
     }
   );
 
   document
-    .querySelectorAll('[data-action="back"]')
+    .querySelectorAll(
+      '[data-action="back"]'
+    )
     .forEach((button) => {
       button.addEventListener(
         "click",
@@ -739,7 +759,9 @@ function bindEvents() {
     });
 
   document
-    .querySelectorAll('[data-action="next"]')
+    .querySelectorAll(
+      '[data-action="next"]'
+    )
     .forEach((button) => {
       button.addEventListener(
         "click",
@@ -796,16 +818,10 @@ function bindEvents() {
 
   elements.newOrderButton.addEventListener(
     "click",
-    () => {
-      resetState();
-      showScreen("theme");
-    }
+    returnToMenu
   );
 }
 
-/**
- * Inicialização do sistema.
- */
 function initializeApp() {
   renderInitialOptions();
   bindEvents();
