@@ -1,8 +1,5 @@
 # Totem Pitter Pan
 
-Abra o arquivo `index.html` no navegador.
-
-Para desenvolver com atualização automática, use a extensão Live Server no VS Code.
 
 ## Estrutura
 
