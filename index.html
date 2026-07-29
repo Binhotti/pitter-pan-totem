@@ -13,17 +13,19 @@
 </head>
 <body>
   <main class="app">
-    <header class="topbar">
+    <header class="topbar topbar--hidden" id="topbar">
       <button class="icon-button hidden" id="backButton" type="button" aria-label="Voltar">
         ←
       </button>
 
-      <img class="topbar__logo" src="assets/logo-pitter-pan.png" alt="Pitter Pan Festas">
+      <div class="topbar__center">
+        <img class="topbar__logo" src="assets/logo-pitter-pan.png" alt="Pitter Pan Festas">
 
-      <div class="progress hidden" id="progress">
-        <span class="progress__text" id="progressText">Etapa 1 de 4</span>
-        <div class="progress__track">
-          <div class="progress__bar" id="progressBar"></div>
+        <div class="progress hidden" id="progress">
+          <span class="progress__text" id="progressText">Etapa 1 de 4</span>
+          <div class="progress__track">
+            <div class="progress__bar" id="progressBar"></div>
+          </div>
         </div>
       </div>
 
@@ -37,32 +39,28 @@
       <div class="welcome-card">
         <img class="welcome-card__logo" src="assets/logo-pitter-pan.png" alt="Pitter Pan Festas">
 
-        <div class="welcome-card__content">
-          <span class="eyebrow">Personalização de balões</span>
-          <h1>Seja bem-vindo!</h1>
-          <p>
-            Monte seu balão de forma simples e veja cada detalhe antes de confirmar.
-          </p>
+        <h1>Seja Bem-Vindo</h1>
+        <p>
+          Monte seu balão de forma simples e acompanhe cada detalhe da personalização.
+        </p>
 
-          <button class="primary-button primary-button--large" id="startButton" type="button">
-            Começar
-            <span aria-hidden="true">→</span>
-          </button>
-        </div>
+        <button class="primary-button primary-button--large" id="startButton" type="button">
+          Começar
+          <span aria-hidden="true">→</span>
+        </button>
       </div>
     </section>
 
     <!-- ESCOLHA DA OCASIÃO -->
     <section class="screen" data-screen="theme">
-      <div class="screen-heading">
-        <span class="eyebrow">Etapa 1</span>
+      <div class="screen-heading screen-heading--theme">
         <h2>Qual é a ocasião?</h2>
-        <p>Escolha a opção que mais combina com o momento.</p>
+        <p>Toque em uma opção para continuar.</p>
       </div>
 
       <div class="option-grid option-grid--themes" id="themeGrid"></div>
 
-      <div class="screen-actions">
+      <div class="screen-actions screen-actions--theme">
         <button class="secondary-button" data-action="back" type="button">Voltar</button>
         <button class="primary-button" data-action="next" type="button" disabled>
           Continuar
@@ -259,7 +257,7 @@
         </div>
 
         <button class="primary-button primary-button--large" id="newOrderButton" type="button">
-          Fazer novo pedido
+          Sair
         </button>
       </div>
     </section>

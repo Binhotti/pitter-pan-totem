@@ -1,5 +1,8 @@
 # Totem Pitter Pan
 
+Abra o arquivo `index.html` no navegador.
+
+Para desenvolver com atualização automática, use a extensão Live Server no VS Code.
 
 ## Estrutura
 
@@ -13,3 +16,7 @@
 ## Ajustar preços
 
 Altere `basePrice` em `js/data.js`.
+
+## Atualização visual
+
+A tela inicial e a seleção de ocasiões usam uma organização vertical e touch-first, adequada para adaptação futura em totem.
