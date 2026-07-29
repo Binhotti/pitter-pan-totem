@@ -1,0 +1,19 @@
+:root {
+  --blue: #303d8f;
+  --blue-dark: #202b72;
+  --blue-soft: #eef1ff;
+  --red: #f20d18;
+  --yellow: #ffd500;
+  --white: #ffffff;
+  --background: #f6f7fb;
+  --surface: #ffffff;
+  --text: #20243a;
+  --muted: #70758b;
+  --border: #e4e7f0;
+  --success: #1b9c5a;
+  --shadow: 0 22px 60px rgba(31, 42, 100, 0.12);
+  --radius-small: 14px;
+  --radius-medium: 22px;
+  --radius-large: 34px;
+  --transition: 180ms ease;
+}

@@ -1,0 +1,133 @@
+@media (max-width: 1100px) {
+  .option-grid--themes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .configurator {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-panel {
+    min-height: 620px;
+  }
+}
+
+@media (max-width: 860px) {
+  .topbar {
+    grid-template-columns: 72px 1fr 72px;
+    min-height: 76px;
+    padding-inline: 16px;
+  }
+
+  .topbar__logo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .screen {
+    min-height: calc(100vh - 76px);
+  }
+
+  .welcome-card {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-card__logo {
+    min-height: 260px;
+    max-height: 310px;
+    padding: 34px;
+  }
+
+  .option-grid--themes,
+  .option-grid--models {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .model-layout,
+  .summary-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-preview {
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    grid-template-columns: 58px 1fr 58px;
+  }
+
+  .progress__text {
+    font-size: 0.69rem;
+  }
+
+  .text-button {
+    font-size: 0;
+  }
+
+  .text-button::after {
+    content: "↻";
+    font-size: 1.4rem;
+  }
+
+  .screen {
+    padding: 28px 14px;
+  }
+
+  .option-grid--themes,
+  .option-grid--models,
+  .font-options {
+    grid-template-columns: 1fr;
+  }
+
+  .option-card {
+    min-height: 118px;
+  }
+
+  .screen-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    margin-right: -14px;
+    margin-left: -14px;
+    padding: 14px;
+    background: rgba(246, 247, 251, 0.95);
+    backdrop-filter: blur(12px);
+  }
+
+  .screen-actions > * {
+    flex: 1;
+  }
+
+  .preview-panel,
+  .controls-panel,
+  .summary-card,
+  .summary-preview {
+    border-radius: 24px;
+  }
+
+  .preview-panel {
+    min-height: 500px;
+  }
+
+  .balloon-stage {
+    min-height: 390px;
+  }
+
+  .control-group--row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .summary-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .summary-row strong {
+    max-width: 100%;
+    text-align: left;
+  }
+}
