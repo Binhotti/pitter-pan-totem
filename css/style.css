@@ -591,11 +591,15 @@ textarea:focus {
 
 .color-button {
   position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   flex: 0 0 auto;
   width: 48px;
   min-width: 48px;
   max-width: 48px;
   height: 48px;
+  aspect-ratio: 1 / 1;
   padding: 4px;
   background: var(--white);
   border: 2px solid var(--border);
