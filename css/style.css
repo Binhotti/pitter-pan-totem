@@ -325,14 +325,8 @@ p {
 }
 
 .option-card__icon {
-  display: grid;
-  flex: 0 0 66px;
-  width: 66px;
-  height: 66px;
-  place-items: center;
+  color: var(--blue);
   background: var(--blue-soft);
-  border-radius: 20px;
-  font-size: 2rem;
 }
 
 .option-card__text strong {
@@ -768,7 +762,906 @@ textarea:focus {
 }
 
 @keyframes balloonBounce {
-  0% { transform: scale(1); }
-  45% { transform: scale(1.025); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.025);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.option-card__icon svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 2;
+}
+
+.option-card__check svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 3;
+}
+
+.primary-button svg,
+.secondary-button svg,
+.text-button svg,
+.ghost-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+}
+
+.icon-button svg {
+  width: 23px;
+  height: 23px;
+}
+
+.text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.success-icon svg {
+  width: 38px;
+  height: 38px;
+  stroke-width: 3;
+}
+
+/* ==================================================
+   VISUAL CLEAN — PITTER PAN
+   Adicione no final do style.css
+================================================== */
+
+:root {
+  --primary: #d96387;
+  --primary-hover: #c75277;
+  --primary-soft: #f9edf1;
+
+  --background: #f7f7f7;
+  --surface: #ffffff;
+
+  --text-primary: #242424;
+  --text-secondary: #686868;
+  --text-muted: #929292;
+
+  --border: #e6e6e6;
+  --border-strong: #d4d4d4;
+
+  --radius-small: 8px;
+  --radius-medium: 12px;
+  --radius-large: 16px;
+
+  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Remove brilhos, gradientes e efeitos exagerados */
+
+* {
+  text-shadow: none !important;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+/* Remove possíveis círculos decorativos do fundo */
+
+body::before,
+body::after,
+.app::before,
+.app::after,
+.screen::before,
+.screen::after {
+  display: none;
+}
+
+/* Cabeçalho */
+
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+/* Botões principais */
+
+.primary-button {
+  min-height: 52px;
+  padding: 0 24px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  color: #ffffff;
+  background: var(--primary);
+  background-image: none;
+
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-medium);
+
+  box-shadow: none;
+  filter: none;
+
+  font-weight: 600;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 100ms ease;
+}
+
+.primary-button:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+
+  box-shadow: none;
+  filter: none;
+  transform: none;
+}
+
+.primary-button:active {
+  transform: scale(0.98);
+}
+
+.primary-button:disabled {
+  color: #a1a1a1;
+  background: #ededed;
+  border-color: #ededed;
+
+  box-shadow: none;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.primary-button svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 2;
+}
+
+/* Botão grande da página inicial */
+
+.primary-button--large {
+  min-width: 210px;
+  min-height: 58px;
+  padding: 0 30px;
+
+  border-radius: var(--radius-medium);
+  font-size: 1rem;
+}
+
+/* Botões secundários */
+
+.secondary-button,
+.ghost-button {
+  min-height: 50px;
+  padding: 0 22px;
+
+  color: var(--text-primary);
+  background: var(--surface);
+
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-medium);
+
+  box-shadow: none;
+  filter: none;
+}
+
+.secondary-button:hover,
+.ghost-button:hover {
+  background: #f4f4f4;
+  border-color: #c8c8c8;
+
+  box-shadow: none;
+  transform: none;
+}
+
+/* Botões apenas com texto */
+
+.text-button {
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.text-button:hover {
+  color: var(--text-primary);
+  background: transparent;
+}
+
+/* Botão com ícone */
+
+.icon-button {
+  width: 44px;
+  height: 44px;
+
+  color: var(--text-primary);
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  box-shadow: none;
+}
+
+.icon-button:hover {
+  background: #f3f3f3;
+  border-color: var(--border-strong);
+  transform: none;
+}
+
+/* Cartões de ocasião e modelos */
+
+.option-card {
+  position: relative;
+
+  min-height: 118px;
+  padding: 22px;
+
+  color: var(--text-primary);
+  background: var(--surface);
+  background-image: none;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+
+  box-shadow: var(--shadow-small);
+  filter: none;
+
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    transform 100ms ease;
+}
+
+.option-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-small);
+  transform: none;
+}
+
+.option-card:active {
+  transform: scale(0.99);
+}
+
+.option-card--selected {
+  background: var(--primary-soft);
+  background-image: none;
+
+  border-color: var(--primary);
+
+  box-shadow: 0 0 0 1px var(--primary);
+  filter: none;
+}
+
+/* Área dos ícones */
+
+.option-card__icon {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--primary);
+  background: var(--primary-soft);
+  background-image: none;
+
+  border: 1px solid transparent;
+  border-radius: 12px;
+
+  box-shadow: none;
+}
+
+.option-card__icon svg {
+  width: 25px;
+  height: 25px;
+  stroke-width: 1.8;
+}
+
+/* Marca de opção selecionada */
+
+.option-card__check {
+  width: 24px;
+  height: 24px;
+
+  display: grid;
+  place-items: center;
+
+  color: #ffffff;
+  background: var(--primary);
+
+  border: none;
+  border-radius: 50%;
+
+  box-shadow: none;
+}
+
+.option-card:not(.option-card--selected)
+  .option-card__check {
+  visibility: hidden;
+}
+
+/* Textos dos cartões */
+
+.option-card__text strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.option-card__text span {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* Blocos, painéis e resumo */
+
+.panel,
+.customization-panel,
+.preview-panel,
+.summary-card,
+.finish-card,
+.card {
+  background: var(--surface);
+  background-image: none;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+
+  box-shadow: var(--shadow-small);
+  backdrop-filter: none;
+}
+
+/* Campo de mensagem */
+
+input,
+textarea,
+select,
+.message-input {
+  color: var(--text-primary);
+  background: var(--surface);
+
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-small);
+
+  box-shadow: none;
+  outline: none;
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.message-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(217, 99, 135, 0.12);
+}
+
+/* Botões de fonte */
+
+.font-button {
+  color: var(--text-primary);
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+
+  box-shadow: none;
+}
+
+.font-button:hover {
+  background: #f7f7f7;
+  border-color: var(--border-strong);
+  transform: none;
+}
+
+.font-button--selected {
+  color: var(--text-primary);
+  background: var(--primary-soft);
+
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+/* Botões de cor */
+
+.color-button {
+  box-shadow: none;
+  filter: none;
+  transition:
+    border-color 150ms ease,
+    transform 100ms ease;
+}
+
+.color-button:hover {
+  box-shadow: none;
+  filter: none;
+  transform: scale(1.04);
+}
+
+.color-button--selected {
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 4px var(--primary);
+}
+
+/* Controle de quantidade */
+
+.quantity-control {
+  background: #f5f5f5;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-medium);
+  box-shadow: none;
+}
+
+.quantity-control button {
+  color: var(--text-primary);
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+
+  box-shadow: none;
+}
+
+.quantity-control button:hover:not(:disabled) {
+  color: var(--primary);
+  background: var(--primary-soft);
+
+  border-color: var(--primary);
+  box-shadow: none;
+  transform: none;
+}
+
+/* Barra de progresso */
+
+.progress {
+  background: transparent;
+  box-shadow: none;
+}
+
+.progress__track,
+.progress-bar {
+  overflow: hidden;
+
+  background: #e8e8e8;
+  border-radius: 100px;
+  box-shadow: none;
+}
+
+.progress__fill,
+#progressBar {
+  background: var(--primary);
+  background-image: none;
+
+  border-radius: 100px;
+  box-shadow: none;
+}
+
+/* Prévia do balão */
+
+.balloon-preview,
+.model-preview,
+.preview-stage {
+  background: #fafafa;
+  background-image: none;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+
+  box-shadow: none;
+}
+
+/* Ícone da conclusão */
+
+.success-icon {
+  color: var(--primary);
+  background: var(--primary-soft);
+  background-image: none;
+
+  border: 1px solid rgba(217, 99, 135, 0.2);
+  box-shadow: none;
+  filter: none;
+}
+
+/* Remove animações decorativas e brilhos */
+
+.glow,
+.shine,
+.sparkle,
+.decorative-blur,
+.background-glow {
+  display: none !important;
+}
+
+button::before,
+button::after,
+.option-card::before,
+.option-card::after,
+.primary-button::before,
+.primary-button::after {
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Animações mais discretas */
+
+.screen--active {
+  animation: cleanScreenEntry 180ms ease-out;
+}
+
+@keyframes cleanScreenEntry {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================================================
+   CORES PITTER PAN
+   Branco, vermelho e amarelo
+================================================== */
+
+:root {
+  /* Cores principais */
+  --primary: #d71920;
+  --primary-hover: #b9151b;
+  --primary-active: #9f1217;
+  --primary-soft: #fff1f1;
+
+  --secondary: #f7c900;
+  --secondary-hover: #ddb400;
+  --secondary-soft: #fff9dc;
+
+  /* Superfícies */
+  --background: #f7f7f7;
+  --surface: #ffffff;
+  --surface-secondary: #fafafa;
+
+  /* Textos */
+  --text-primary: #252525;
+  --text-secondary: #666666;
+  --text-muted: #929292;
+
+  /* Bordas */
+  --border: #e6e6e6;
+  --border-strong: #d4d4d4;
+
+  /* Sombras discretas */
+  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+/* Fundo geral */
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+/* Cabeçalho */
+
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Pequena linha vermelha no cabeçalho */
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+
+  height: 3px;
+  background: var(--primary);
+}
+
+/* Botão principal */
+
+.primary-button {
+  color: #ffffff;
+
+  background: var(--primary);
+  background-image: none;
+
+  border-color: var(--primary);
+  box-shadow: none;
+}
+
+.primary-button:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.primary-button:active {
+  background: var(--primary-active);
+  border-color: var(--primary-active);
+}
+
+.primary-button:focus-visible {
+  outline: 3px solid rgba(247, 201, 0, 0.4);
+  outline-offset: 3px;
+}
+
+/* Ícone do botão principal */
+
+.primary-button svg {
+  color: #ffffff;
+}
+
+/* Botão desabilitado */
+
+.primary-button:disabled {
+  color: #999999;
+  background: #ececec;
+  border-color: #ececec;
+}
+
+/* Botões secundários */
+
+.secondary-button,
+.ghost-button {
+  color: var(--primary);
+  background: var(--surface);
+
+  border: 1px solid var(--primary);
+}
+
+.secondary-button:hover,
+.ghost-button:hover {
+  color: var(--primary-hover);
+  background: var(--primary-soft);
+  border-color: var(--primary-hover);
+}
+
+/* Botão somente com texto */
+
+.text-button {
+  color: var(--primary);
+}
+
+.text-button:hover {
+  color: var(--primary-hover);
+}
+
+/* Botão de voltar */
+
+.icon-button {
+  color: var(--primary);
+  background: var(--surface);
+
+  border-color: var(--border);
+}
+
+.icon-button:hover {
+  color: var(--primary-hover);
+  background: var(--primary-soft);
+  border-color: var(--primary);
+}
+
+/* Cartões */
+
+.option-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.option-card:hover {
+  border-color: #c9c9c9;
+}
+
+/* Cartão selecionado */
+
+.option-card--selected {
+  background: var(--primary-soft);
+
+  border-color: var(--primary);
+
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+/* Ícones dos cartões */
+
+.option-card__icon {
+  color: var(--primary);
+
+  background: var(--secondary-soft);
+
+  border: 1px solid rgba(247, 201, 0, 0.35);
+}
+
+/* Alguns ícones podem ficar amarelos */
+
+.option-card:nth-child(even)
+  .option-card__icon {
+  color: #9b7600;
+  background: var(--secondary-soft);
+}
+
+/* Ícone de seleção */
+
+.option-card__check {
+  color: #ffffff;
+  background: var(--primary);
+}
+
+/* Títulos dos cartões */
+
+.option-card__text strong {
+  color: var(--text-primary);
+}
+
+/* Botões de fonte */
+
+.font-button {
+  color: var(--text-primary);
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.font-button:hover {
+  background: var(--secondary-soft);
+  border-color: var(--secondary);
+}
+
+.font-button--selected {
+  color: var(--primary);
+  background: var(--primary-soft);
+
+  border-color: var(--primary);
+
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+/* Campos */
+
+input:focus,
+textarea:focus,
+select:focus,
+.message-input:focus {
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 0 3px rgba(215, 25, 32, 0.1);
+}
+
+/* Contador de caracteres */
+
+.character-counter,
+.input-counter {
+  color: var(--text-muted);
+}
+
+/* Controle de quantidade */
+
+.quantity-control button {
+  color: var(--primary);
+  background: var(--surface);
+}
+
+.quantity-control button:hover:not(:disabled) {
+  color: var(--primary-hover);
+  background: var(--secondary-soft);
+  border-color: var(--secondary);
+}
+
+/* Barra de progresso */
+
+.progress__fill,
+#progressBar {
+  background: var(--primary);
+}
+
+/* Marcador amarelo na barra */
+
+.progress__track,
+.progress-bar {
+  background: #eeeeee;
+}
+
+/* Círculos de seleção de cor */
+
+.color-button--selected {
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 4px var(--primary);
+}
+
+/* Tela final */
+
+.success-icon {
+  color: var(--primary);
+  background: var(--secondary-soft);
+
+  border: 1px solid rgba(247, 201, 0, 0.5);
+}
+
+/* Código do pedido */
+
+#orderCode {
+  color: var(--primary);
+}
+
+/* Valores e preços */
+
+#summaryPrice,
+#finishPrice {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Destaques amarelos pequenos */
+
+.highlight,
+.badge,
+.tag {
+  color: #5e4800;
+  background: var(--secondary-soft);
+
+  border: 1px solid rgba(247, 201, 0, 0.45);
+}
+
+/* Links */
+
+a {
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+.welcome-content h1,
+.welcome-screen h1 {
+  position: relative;
+}
+
+.welcome-content h1::after,
+.welcome-screen h1::after {
+  content: "";
+
+  display: block;
+
+  width: 46px;
+  height: 4px;
+  margin: 14px auto 0;
+
+  background: var(--secondary);
+  border-radius: 4px;
+}
+
+.brand-logo,
+.welcome-logo {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow: var(--shadow-small);
 }

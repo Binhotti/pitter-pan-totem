@@ -1,13 +1,53 @@
 const APP_DATA = {
   themes: [
-    { id: "aniversario", name: "Aniversário", icon: "🎂", description: "Festas, idades e comemorações" },
-    { id: "casamento", name: "Casamento", icon: "💍", description: "Noivado, casamento e bodas" },
-    { id: "cha-revelacao", name: "Chá revelação", icon: "👶", description: "Uma surpresa muito especial" },
-    { id: "dia-dos-pais", name: "Dia dos Pais", icon: "💙", description: "Presentes cheios de carinho" },
-    { id: "batizado", name: "Batizado", icon: "🕊️", description: "Momentos de fé e celebração" },
-    { id: "dia-das-criancas", name: "Dia das Crianças", icon: "🧸", description: "Cores e diversão para os pequenos" },
-    { id: "namoro", name: "Namoro", icon: "❤️", description: "Surpresas românticas" },
-    { id: "outro", name: "Outra ocasião", icon: "✨", description: "Crie algo totalmente personalizado" }
+    {
+      id: "aniversario",
+      name: "Aniversário",
+      icon: "cake",
+      description: "Festas, idades e comemorações"
+    },
+    {
+      id: "casamento",
+      name: "Casamento",
+      icon: "gem",
+      description: "Noivado, casamento e bodas"
+    },
+    {
+      id: "cha-revelacao",
+      name: "Chá revelação",
+      icon: "baby",
+      description: "Uma surpresa muito especial"
+    },
+    {
+      id: "dia-dos-pais",
+      name: "Dia dos Pais",
+      icon: "heart-handshake",
+      description: "Presentes cheios de carinho"
+    },
+    {
+      id: "batizado",
+      name: "Batizado",
+      icon: "sparkles",
+      description: "Momentos de fé e celebração"
+    },
+    {
+      id: "dia-das-criancas",
+      name: "Dia das Crianças",
+      icon: "toy-brick",
+      description: "Cores e diversão para os pequenos"
+    },
+    {
+      id: "namoro",
+      name: "Namoro",
+      icon: "heart",
+      description: "Surpresas românticas"
+    },
+    {
+      id: "outro",
+      name: "Outra ocasião",
+      icon: "wand-sparkles",
+      description: "Crie algo totalmente personalizado"
+    }
   ],
 
   models: [
@@ -15,7 +55,7 @@ const APP_DATA = {
       id: "bubble",
       name: "Bubble transparente",
       description: "Redondo, transparente e elegante",
-      icon: "◯",
+      icon: "circle",
       shape: "circle",
       basePrice: 49.90,
       defaultColor: "#dff4ff",
@@ -25,7 +65,7 @@ const APP_DATA = {
       id: "redondo",
       name: "Redondo clássico",
       description: "Visual tradicional e versátil",
-      icon: "●",
+      icon: "circle-dot",
       shape: "round",
       basePrice: 34.90,
       defaultColor: "#ffd7e8",
@@ -35,7 +75,7 @@ const APP_DATA = {
       id: "coracao",
       name: "Coração",
       description: "Perfeito para mensagens românticas",
-      icon: "♥",
+      icon: "heart",
       shape: "heart",
       basePrice: 44.90,
       defaultColor: "#f04a67",
@@ -45,7 +85,7 @@ const APP_DATA = {
       id: "estrela",
       name: "Estrela metalizada",
       description: "Formato marcante com brilho",
-      icon: "★",
+      icon: "star",
       shape: "star",
       basePrice: 42.90,
       defaultColor: "#ffd54f",

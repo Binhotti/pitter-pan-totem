@@ -193,23 +193,22 @@ function createOptionCard(item, type) {
   button.dataset.id = item.id;
 
   button.innerHTML = `
-    <span class="option-card__icon">
-      ${item.icon}
-    </span>
+        <span class="option-card__icon">
+            <i data-lucide="${item.icon}"></i>
+        </span>
 
     <span class="option-card__text">
       <strong>${item.name}</strong>
 
-      ${
-        item.description
-          ? `<span>${item.description}</span>`
-          : ""
-      }
+      ${item.description
+      ? `<span>${item.description}</span>`
+      : ""
+    }
     </span>
 
-    <span class="option-card__check">
-      ✓
-    </span>
+      <span class="option-card__check">
+          <i data-lucide="check"></i>
+      </span>
   `;
 
   button.addEventListener(
@@ -397,6 +396,8 @@ function renderInitialOptions() {
     APP_DATA.textColors,
     "text"
   );
+
+  lucide.createIcons();
 }
 
 function renderColorButtons(
@@ -467,7 +468,7 @@ function syncControls() {
       button.classList.toggle(
         "font-button--selected",
         button.dataset.id ===
-          state.fontId
+        state.fontId
       );
     });
 
@@ -477,7 +478,7 @@ function syncControls() {
       button.classList.toggle(
         "color-button--selected",
         button.dataset.id ===
-          state.balloonColorId
+        state.balloonColorId
       );
     });
 
@@ -487,7 +488,7 @@ function syncControls() {
       button.classList.toggle(
         "color-button--selected",
         button.dataset.id ===
-          state.textColorId
+        state.textColorId
       );
     });
 
@@ -713,10 +714,9 @@ function confirmOrder() {
   document.querySelector(
     "#finishQuantity"
   ).textContent =
-    `${state.quantity} ${
-      state.quantity === 1
-        ? "balão"
-        : "balões"
+    `${state.quantity} ${state.quantity === 1
+      ? "balão"
+      : "balões"
     }`;
 
   document.querySelector(

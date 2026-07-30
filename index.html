@@ -17,7 +17,7 @@
   <main class="app">
     <header class="topbar topbar--hidden" id="topbar">
       <button class="icon-button hidden" id="backButton" type="button" aria-label="Voltar">
-        ←
+        <i data-lucide="arrow-left"></i>
       </button>
 
       <div class="topbar__center">
@@ -32,6 +32,7 @@
       </div>
 
       <button class="text-button hidden" id="restartButton" type="button">
+        <i data-lucide="rotate-ccw"></i>
         Reiniciar
       </button>
     </header>
@@ -48,7 +49,7 @@
 
         <button class="primary-button primary-button--large" id="startButton" type="button">
           Começar
-          <span aria-hidden="true">→</span>
+          <i data-lucide="arrow-right"></i>
         </button>
       </div>
     </section>
@@ -66,7 +67,7 @@
         <button class="secondary-button" data-action="back" type="button">Voltar</button>
         <button class="primary-button" data-action="next" type="button" disabled>
           Continuar
-          <span aria-hidden="true">→</span>
+          <i data-lucide="arrow-right"></i>
         </button>
       </div>
     </section>
@@ -109,7 +110,7 @@
             </div>
 
             <button class="ghost-button" id="resetCustomization" type="button">
-              Restaurar
+              Corrigir
             </button>
           </div>
 
@@ -232,7 +233,7 @@
         <button class="secondary-button" data-action="back" type="button">Editar</button>
         <button class="primary-button" id="confirmOrderButton" type="button">
           Confirmar pedido
-          <span aria-hidden="true">✓</span>
+          <i data-lucide="check"></i>
         </button>
       </div>
     </section>
@@ -240,7 +241,9 @@
     <!-- PEDIDO CONCLUÍDO -->
     <section class="screen finish-screen" data-screen="finish">
       <div class="finish-card">
-        <div class="success-icon">✓</div>
+        <div class="success-icon">
+          <i data-lucide="check"></i>
+        </div>
         <span class="eyebrow">Pedido realizado</span>
         <h2>Personalização confirmada!</h2>
         <p>Apresente esta senha no caixa para finalizar o atendimento.</p>
@@ -260,6 +263,7 @@
     </section>
   </main>
 
+  <script src="https://unpkg.com/lucide@latest"></script>
   <script src="js/data.js"></script>
   <script src="js/balloon.js"></script>
   <script src="js/app.js"></script>
