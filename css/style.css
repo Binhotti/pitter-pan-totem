@@ -54,14 +54,14 @@
 .progress__track {
   height: 7px;
   overflow: hidden;
-  background: var(--blue-soft);
+  background: var(--secondary-soft);
   border-radius: 999px;
 }
 
 .progress__bar {
   width: 25%;
   height: 100%;
-  background: linear-gradient(90deg, var(--blue), #5969c7);
+  background: linear-gradient(90deg, var(--secondary), #b9151b);
   border-radius: inherit;
   transition: width 300ms ease;
 }
@@ -69,7 +69,7 @@
 .icon-button,
 .text-button,
 .ghost-button {
-  color: var(--blue);
+  color: var(--primary);
   background: transparent;
   font-weight: 800;
 }
@@ -149,7 +149,7 @@
 .eyebrow {
   display: block;
   margin-bottom: 12px;
-  color: var(--blue);
+  color: var(--primary);
   font-size: 0.8rem;
   font-weight: 900;
   text-transform: uppercase;
@@ -199,8 +199,8 @@ p {
 .primary-button {
   gap: 14px;
   color: var(--white);
-  background: var(--blue);
-  box-shadow: 0 12px 24px rgba(48, 61, 143, 0.24);
+  background: var(--primary);
+  box-shadow: 0 12px 24px rgba(29, 78, 216, 0.22);
 }
 
 .primary-button:hover:not(:disabled) {
@@ -310,7 +310,7 @@ p {
 }
 
 .option-card--theme.option-card--selected {
-  background: var(--blue-soft);
+  background: var(--primary-soft);
   border-width: 2px;
 }
 
@@ -320,13 +320,13 @@ p {
 }
 
 .option-card--selected {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 5px rgba(48, 61, 143, 0.1);
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 5px rgba(215, 25, 32, 0.08);
 }
 
 .option-card__icon {
-  color: var(--blue);
-  background: var(--blue-soft);
+  color: var(--primary);
+  background: var(--primary-soft);
 }
 
 .option-card__text strong {
@@ -546,8 +546,8 @@ textarea {
 }
 
 textarea:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 5px rgba(48, 61, 143, 0.09);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 5px rgba(29, 78, 216, 0.09);
 }
 
 .input-meta {
@@ -576,9 +576,9 @@ textarea:focus {
 }
 
 .font-button--selected {
-  color: var(--blue);
-  background: var(--blue-soft);
-  border-color: var(--blue);
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-color: var(--primary);
 }
 
 .color-options {
@@ -609,8 +609,8 @@ textarea:focus {
 }
 
 .color-button--selected {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 4px rgba(48, 61, 143, 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
   transform: scale(1.07);
 }
 
@@ -632,8 +632,8 @@ textarea:focus {
 
 .quantity-control button {
   height: 48px;
-  color: var(--blue);
-  background: var(--blue-soft);
+  color: var(--primary);
+  background: var(--primary-soft);
   font-size: 1.5rem;
   font-weight: 800;
 }
@@ -694,7 +694,7 @@ textarea:focus {
 }
 
 .summary-total strong {
-  color: var(--blue);
+  color: var(--primary);
   font-size: 2rem;
 }
 
@@ -819,31 +819,7 @@ textarea:focus {
 
 /* ==================================================
    VISUAL CLEAN — PITTER PAN
-   Adicione no final do style.css
 ================================================== */
-
-:root {
-  --primary: #d96387;
-  --primary-hover: #c75277;
-  --primary-soft: #f9edf1;
-
-  --background: #f7f7f7;
-  --surface: #ffffff;
-
-  --text-primary: #242424;
-  --text-secondary: #686868;
-  --text-muted: #929292;
-
-  --border: #e6e6e6;
-  --border-strong: #d4d4d4;
-
-  --radius-small: 8px;
-  --radius-medium: 12px;
-  --radius-large: 16px;
-
-  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
 
 /* Remove brilhos, gradientes e efeitos exagerados */
 
@@ -1323,37 +1299,43 @@ button::after,
 
 /* ==================================================
    CORES PITTER PAN
-   Branco, vermelho e amarelo
+   Branco, azul e vermelho
 ================================================== */
 
 :root {
   /* Cores principais */
-  --primary: #d71920;
-  --primary-hover: #b9151b;
-  --primary-active: #9f1217;
-  --primary-soft: #fff1f1;
+  --primary: #1d4ed8;
+  --primary-hover: #2663d9;
+  --primary-active: #143c8e;
+  --primary-soft: #e7f0ff;
+  --blue: #1d4ed8;
+  --blue-soft: #e7f0ff;
 
-  --secondary: #f7c900;
-  --secondary-hover: #ddb400;
-  --secondary-soft: #fff9dc;
+  --secondary: #d71920;
+  --secondary-hover: #b9151b;
+  --secondary-active: #9f1217;
+  --secondary-soft: #fde8ec;
 
   /* Superfícies */
-  --background: #f7f7f7;
+  --background: #fbfbff;
   --surface: #ffffff;
-  --surface-secondary: #fafafa;
+  --surface-secondary: #f8f9ff;
 
   /* Textos */
-  --text-primary: #252525;
-  --text-secondary: #666666;
-  --text-muted: #929292;
+  --text-primary: #1c2442;
+  --text-secondary: #4f5f85;
+  --text-muted: #7a87a8;
+  --text: #1c2442;
+  --muted: #7a87a8;
+  --white: #ffffff;
 
   /* Bordas */
-  --border: #e6e6e6;
-  --border-strong: #d4d4d4;
+  --border: #e6e9f4;
+  --border-strong: #d7dcf2;
 
   /* Sombras discretas */
-  --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.07);
+  --shadow-small: 0 1px 3px rgba(16, 40, 112, 0.06);
+  --shadow-medium: 0 4px 12px rgba(16, 40, 112, 0.08);
 }
 
 /* Fundo geral */
@@ -1370,7 +1352,7 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
-/* Pequena linha vermelha no cabeçalho */
+/* Pequena linha azul no cabeçalho */
 
 .topbar::after {
   content: "";
@@ -1406,7 +1388,7 @@ body {
 }
 
 .primary-button:focus-visible {
-  outline: 3px solid rgba(247, 201, 0, 0.4);
+  outline: 3px solid rgba(29, 78, 216, 0.28);
   outline-offset: 3px;
 }
 
@@ -1494,14 +1476,14 @@ body {
 
   background: var(--secondary-soft);
 
-  border: 1px solid rgba(247, 201, 0, 0.35);
+  border: 1px solid rgba(215, 25, 32, 0.18);
 }
 
-/* Alguns ícones podem ficar amarelos */
+/* Alguns ícones podem receber um toque vermelho */
 
 .option-card:nth-child(even)
   .option-card__icon {
-  color: #9b7600;
+  color: var(--secondary);
   background: var(--secondary-soft);
 }
 
@@ -1549,7 +1531,7 @@ select:focus,
   border-color: var(--primary);
 
   box-shadow:
-    0 0 0 3px rgba(215, 25, 32, 0.1);
+    0 0 0 3px rgba(29, 78, 216, 0.16);
 }
 
 /* Contador de caracteres */
@@ -1567,7 +1549,7 @@ select:focus,
 }
 
 .quantity-control button:hover:not(:disabled) {
-  color: var(--primary-hover);
+  color: var(--secondary);
   background: var(--secondary-soft);
   border-color: var(--secondary);
 }
@@ -1600,7 +1582,7 @@ select:focus,
   color: var(--primary);
   background: var(--secondary-soft);
 
-  border: 1px solid rgba(247, 201, 0, 0.5);
+  border: 1px solid rgba(215, 25, 32, 0.18);
 }
 
 /* Código do pedido */
@@ -1613,19 +1595,19 @@ select:focus,
 
 #summaryPrice,
 #finishPrice {
-  color: var(--primary);
+  color: var(--secondary);
   font-weight: 700;
 }
 
-/* Destaques amarelos pequenos */
+/* Destaques vermelhos suaves */
 
 .highlight,
 .badge,
 .tag {
-  color: #5e4800;
+  color: var(--secondary);
   background: var(--secondary-soft);
 
-  border: 1px solid rgba(247, 201, 0, 0.45);
+  border: 1px solid rgba(215, 25, 32, 0.18);
 }
 
 /* Links */
