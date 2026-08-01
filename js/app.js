@@ -397,7 +397,7 @@ function renderInitialOptions() {
     "text"
   );
 
-  lucide.createIcons();
+  initializeIcons();
 }
 
 function renderColorButtons(
@@ -686,45 +686,87 @@ function resetCustomization() {
   updatePreview(true);
 }
 
-function generateOrderCode() {
-  const number =
-    Math.floor(
-      Math.random() * 900
-    ) + 100;
+async function confirmOrder() {
+  const theme = APP_DATA.themes.find(
+    (item) => item.id === state.themeId
+  );
 
-  return `A${number}`;
-}
+  const model = APP_DATA.models.find(
+    (item) => item.id === state.modelId
+  );
 
-function confirmOrder() {
-  const model =
-    APP_DATA.models.find(
-      (item) =>
-        item.id === state.modelId
+  const font = APP_DATA.fonts.find(
+    (item) => item.id === state.fontId
+  );
+
+  const balloonColor = APP_DATA.balloonColors.find(
+    (item) => item.id === state.balloonColorId
+  );
+
+  const textColor = APP_DATA.textColors.find(
+    (item) => item.id === state.textColorId
+  );
+
+  if (!theme || !model || !font || !balloonColor || !textColor) {
+    alert("Existem informações incompletas no pedido.");
+    return;
+  }
+
+  const originalContent = elements.confirmOrderButton.innerHTML;
+  elements.confirmOrderButton.disabled = true;
+  elements.confirmOrderButton.textContent = "Salvando pedido...";
+
+  try {
+    const response = await fetch("api/orders.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        occasionId: theme.id,
+        occasionName: theme.name,
+        modelId: model.id,
+        modelName: model.name,
+        message: state.message.trim(),
+        fontId: font.id,
+        fontName: font.name,
+        balloonColorId: balloonColor.id,
+        balloonColorName: balloonColor.name,
+        textColorId: textColor.id,
+        textColorName: textColor.name,
+        quantity: state.quantity,
+        unitPrice: model.basePrice
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Não foi possível salvar o pedido.");
+    }
+
+    const order = result.data;
+
+    document.querySelector("#orderCode").textContent = order.order_code;
+
+    document.querySelector("#finishQuantity").textContent =
+      `${order.quantity} ${Number(order.quantity) === 1 ? "balão" : "balões"}`;
+
+    document.querySelector("#finishPrice").textContent =
+      formatCurrency(Number(order.total_price));
+
+    showScreen("finish");
+  } catch (error) {
+    console.error(error);
+    alert(
+      "Não foi possível registrar o pedido no banco. " +
+      "Confira se o Apache, o MySQL e o banco pitterpan_totem estão ativos."
     );
-
-  const total =
-    (model?.basePrice || 0) *
-    state.quantity;
-
-  document.querySelector(
-    "#orderCode"
-  ).textContent =
-    generateOrderCode();
-
-  document.querySelector(
-    "#finishQuantity"
-  ).textContent =
-    `${state.quantity} ${state.quantity === 1
-      ? "balão"
-      : "balões"
-    }`;
-
-  document.querySelector(
-    "#finishPrice"
-  ).textContent =
-    formatCurrency(total);
-
-  showScreen("finish");
+  } finally {
+    elements.confirmOrderButton.disabled = false;
+    elements.confirmOrderButton.innerHTML = originalContent;
+    initializeIcons();
+  }
 }
 
 function bindEvents() {
@@ -822,12 +864,19 @@ function bindEvents() {
   );
 }
 
+function initializeIcons() {
+  if (typeof lucide !== "undefined") {
+    lucide.createIcons();
+  }
+}
+
 function initializeApp() {
   renderInitialOptions();
   bindEvents();
   syncControls();
   updatePreview();
   showScreen("welcome");
+  initializeIcons();
 }
 
 initializeApp();
