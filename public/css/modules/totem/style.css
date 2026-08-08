@@ -150,6 +150,11 @@ body {
   z-index: 2;
 }
 
+.welcome-screen .welcome-card {
+  position: relative;
+  z-index: 2;
+}
+
 .welcome-balloons {
   position: absolute;
   inset: 0;

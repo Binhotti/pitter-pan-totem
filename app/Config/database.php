@@ -24,8 +24,8 @@
 
 return [
     'host'    => getenv('DB_HOST') ?: 'localhost',
-    'porta'   => getenv('DB_PORT') ?: '3306',
-    'banco'   => getenv('DB_DATABASE') ?: 'pitterpan',
+    'porta'   => getenv('DB_PORT') ?: '4406',
+    'banco'   => getenv('DB_DATABASE') ?: 'pitterpan_totem',
     'usuario' => getenv('DB_USERNAME') ?: 'root',
     'senha'   => getenv('DB_PASSWORD') ?: '',
     'charset' => 'utf8mb4',

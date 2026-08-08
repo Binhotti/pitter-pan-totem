@@ -20,4 +20,6 @@ $router->get('/', function () use ($basePath): void {
 });
 
 $router->get('/totem', [App\Controllers\Http\TotemController::class, 'index']);
+$router->get('/funcionarios', [App\Controllers\Http\Funcionario\FuncionarioController::class, 'index']);
+$router->get('/admin', [App\Controllers\Http\Admin\AdminDashboardController::class, 'index']);
 $router->get('/admin/pedidos', [App\Controllers\Http\Admin\PedidoAdminController::class, 'index']);

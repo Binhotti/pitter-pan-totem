@@ -92,6 +92,13 @@ function showScreen(screenName) {
   const isWelcome = screenName === "welcome";
   const isFinish = screenName === "finish";
 
+  if (isWelcome) {
+    const welcomeScreen = document.querySelector(".welcome-screen");
+    if (welcomeScreen) {
+      welcomeScreen.classList.remove("welcome-screen--exit");
+    }
+  }
+
   const progressIndex =
     progressScreens.indexOf(screenName);
 
