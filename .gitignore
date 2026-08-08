@@ -1,3 +1,36 @@
+# Configurações privadas
+.env
+.env.local
+config/database.php
+
+# Logs e arquivos temporários
+*.log
+logs/
+tmp/
+cache/
+
+# Dados enviados pelos usuários
+uploads/*
+!uploads/.gitkeep
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Configurações de editores
+.vscode/
+.idea/
+
+# Dependências futuras
+vendor/
+node_modules/
+
+# Backups e exportações do banco
+*.sql
+*.sqlite
+*.db
+backup/
+backups/
 # Ambiente
 .env
 
