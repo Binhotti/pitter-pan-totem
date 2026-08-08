@@ -67,6 +67,12 @@
 
     <!-- TELA INICIAL -->
     <section class="screen screen--active welcome-screen" data-screen="welcome">
+      <div class="welcome-balloons" aria-hidden="true">
+        <video class="welcome-balloons__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+          <source src="<?= APP_BASE_PATH ?>/assets/images/baloes.mp4" type="video/mp4">
+        </video>
+      </div>
+
       <div class="welcome-card">
         <img class="welcome-card__logo" src="<?= APP_BASE_PATH ?>/assets/images/logos/logo-pitter-pan.png" alt="Pitter Pan Festas">
 
