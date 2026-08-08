@@ -1,0 +1,31 @@
+# Ambiente
+.env
+
+# Gerado em tempo de execução — nunca versionado
+storage/logs/*
+storage/cache/*
+storage/sessions/*
+storage/temp/*
+storage/private-uploads/*
+!storage/logs/README.md
+!storage/cache/README.md
+!storage/sessions/README.md
+!storage/temp/README.md
+!storage/private-uploads/README.md
+
+# Backups
+database/backups/*
+!database/backups/README.md
+
+# Dependências PHP (se Composer for adotado)
+vendor-php/*
+!vendor-php/README.md
+
+# Uploads públicos gerados pelo sistema (mantidos fora do versionamento,
+# exceto a documentação da pasta)
+public/uploads/produtos/*
+!public/uploads/produtos/README.md
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db

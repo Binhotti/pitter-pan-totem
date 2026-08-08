@@ -1,0 +1,24 @@
+-- Arquivo: baloes.sql
+-- Camada: database/schema
+-- Responsabilidade: documentar a estrutura da tabela `baloes`
+--   (definição das colunas, tipos e chaves), servindo como
+--   referência única e legível da entidade Balão no banco.
+-- Depende de: nenhuma outra tabela nesta versão inicial.
+-- Usado por: app/Repositories/BalaoRepository.php (indiretamente,
+--   como fonte de verdade da estrutura).
+--
+-- NOTA IMPORTANTE: este é um arquivo de documentação estrutural.
+-- Nenhum CREATE TABLE foi executado ou finalizado nesta etapa —
+-- as colunas reais (cor, tamanho, tipo_personalizacao, preco, etc.)
+-- serão definidas na etapa de desenvolvimento, seguindo a convenção
+-- de nomenclatura: tabela em snake_case plural, chave primária `id`,
+-- chave estrangeira `nome_tabela_id`.
+--
+-- Estrutura planejada (referência, não executável ainda):
+-- CREATE TABLE baloes (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     cor VARCHAR(50),
+--     tamanho VARCHAR(50),
+--     tipo_personalizacao VARCHAR(100),
+--     preco DECIMAL(10,2)
+-- );

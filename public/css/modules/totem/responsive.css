@@ -1,0 +1,330 @@
+@media (max-width: 680px) {
+  .topbar {
+    min-height: 68px;
+  }
+
+  .topbar__content {
+    min-height: 68px;
+
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .brand img,
+  .logo img,
+  .brand-logo {
+    max-width: 112px;
+    max-height: 42px;
+  }
+
+  .screen {
+    min-height: calc(100vh - 68px);
+    padding: 36px 0 50px;
+  }
+
+  .screen-header {
+    margin-bottom: 28px;
+  }
+
+  .screen-header h1,
+  .screen-header h2 {
+    font-size: 2rem;
+  }
+
+  .option-grid,
+  .theme-grid,
+  .option-grid--models,
+  .model-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .model-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .mini-preview {
+    min-height: auto;
+    padding: 22px;
+  }
+
+  .balloon-stage {
+    min-height: 300px;
+  }
+
+  .configurator {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .preview-panel,
+  .controls-panel {
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .preview-panel__heading,
+  .controls-panel__heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .color-options {
+    gap: 10px;
+  }
+
+  .option-card {
+    min-height: 120px;
+    padding: 20px 58px 20px 20px;
+
+    gap: 17px;
+
+    border-radius: 17px;
+  }
+
+  .option-card__icon {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
+  }
+
+  .option-card__icon svg {
+    width: 27px;
+    height: 27px;
+  }
+
+  .option-card__text strong {
+    margin-bottom: 4px;
+    font-size: 1.08rem;
+  }
+
+  .option-card__text span {
+    font-size: 0.88rem;
+  }
+
+  .option-card__check {
+    top: 16px;
+    right: 16px;
+
+    width: 30px;
+    height: 30px;
+  }
+
+  .customization-panel,
+  .controls-panel,
+  .preview-panel,
+  .summary-card {
+    padding: 22px;
+
+    border-radius: 17px;
+  }
+
+  .font-options,
+  #fontOptions {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-stage,
+  .balloon-preview,
+  #balloonPreview,
+  #summaryPreview {
+    min-height: 310px;
+  }
+
+  .summary-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .summary-row dd,
+  .summary-value {
+    text-align: left;
+  }
+
+  .summary-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .summary-preview,
+  .summary-card {
+    padding: 18px;
+  }
+
+  .summary-row,
+  .summary-total {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .summary-row strong {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .summary-total {
+    align-items: flex-start;
+  }
+
+  .summary-total strong {
+    font-size: 2.2rem;
+    line-height: 1.05;
+    color: var(--secondary);
+  }
+
+  .summary-total span {
+    font-size: 0.95rem;
+  }
+
+  .finish-card {
+    width: auto;
+    padding: 30px 20px;
+  }
+
+  .screen-actions,
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .screen-actions button,
+  .form-actions button,
+  .screen-actions .primary-button,
+  .form-actions .primary-button {
+    width: 100%;
+  }
+
+  .finish-card {
+    padding: 38px 22px;
+    border-radius: 20px;
+  }
+
+  .finish-details {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+========================================================= */
+
+@media (max-width: 420px) {
+  .app-shell,
+  .container,
+  .screen,
+  .progress,
+  .progress-container,
+  .topbar__content {
+    width: calc(100% - 22px);
+  }
+
+  .welcome-content,
+  .welcome-screen {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .welcome-content h1,
+  .welcome-screen h1 {
+    font-size: 2.45rem;
+  }
+
+  .option-card {
+    padding-left: 17px;
+    gap: 14px;
+    min-height: 110px;
+  }
+
+  .option-card__icon {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+  }
+
+  .option-card__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .color-button {
+    width: 38px;
+    min-width: 38px;
+    max-width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+  }
+
+  .font-button,
+  .quantity-control button {
+    min-width: 100%;
+  }
+
+  .option-grid,
+  .theme-grid,
+  .model-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   TOTEM / TELA GRANDE
+========================================================= */
+
+@media (min-width: 1200px) and (min-height: 800px) {
+  .screen {
+    padding-top: 64px;
+  }
+
+  .option-card {
+    min-height: 165px;
+    padding: 30px 78px 30px 30px;
+  }
+
+  .option-card__icon {
+    width: 70px;
+    height: 70px;
+    flex-basis: 70px;
+  }
+
+  .option-card__icon svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .option-card__text strong {
+    font-size: 1.42rem;
+  }
+
+  .option-card__text span {
+    font-size: 1rem;
+  }
+
+  .primary-button {
+    min-height: 58px;
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  .primary-button--large {
+    min-height: 64px;
+    min-width: 240px;
+  }
+}
+
+/* =========================================================
+   ACESSIBILIDADE — MENOS ANIMAÇÃO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

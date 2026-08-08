@@ -1,0 +1,19 @@
+# Arquivo: .htaccess
+# Camada: public/ (raiz web)
+#
+# Responsabilidade:
+#   Roteia para public/index.php apenas o que não corresponde a um
+#   arquivo/pasta real dentro de public/ (assim, CSS/JS/imagens/o
+#   próprio index.html continuam sendo servidos diretamente, e apenas
+#   rotas dinâmicas como /totem, /admin/pedidos e /api/pedidos caem no
+#   front controller PHP).
+#
+# Reforça também o bloqueio de acesso às pastas irmãs de public/
+# (app/, database/, storage/, docs/, scripts/, tests/), caso o
+# DocumentRoot do Apache seja apontado incorretamente para a raiz do
+# projeto em vez de para public/.
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]

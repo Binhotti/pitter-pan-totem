@@ -1,0 +1,300 @@
+<?php
+/**
+ * Arquivo: index.php
+ * Camada: resources/views/pages/totem
+ *
+ * Responsabilidade:
+ *   Tela única do totem de autoatendimento (fluxo de personalização de
+ *   balão em 4 etapas: ocasião -> modelo -> personalização -> resumo).
+ *   Este arquivo é o HTML original do projeto "pitter-pan-totem",
+ *   MIGRADO sem alteração de estrutura/classes/IDs — apenas os caminhos
+ *   de assets (css/js/logo) foram atualizados para os novos locais
+ *   dentro de public/, porque a página agora é servida através da rota
+ *   /totem (ver routes/web.php) e não mais como arquivo solto.
+ *
+ * Dados dinâmicos (ocasiões, modelos, cores, fontes) continuam vindo de
+ *   js/data.js (estático), exatamente como no projeto original — não
+ *   foi migrado para banco de dados nesta etapa.
+ *
+ * Envia o pedido finalizado via POST para /api/pedidos
+ *   (app/Controllers/Api/PedidoApiController.php).
+ *
+ * Renderizada por: app/Controllers/Http/TotemController.php
+ */
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#303d8f">
+  <title>Pitter Pan | Personalização de Balões</title>
+
+  <script>
+    window.APP_BASE_PATH = <?= json_encode(APP_BASE_PATH, JSON_UNESCAPED_SLASHES) ?>;
+  </script>
+
+  <link rel="stylesheet" href="<?= APP_BASE_PATH ?>/css/modules/totem/variables.css">
+  <link rel="stylesheet" href="<?= APP_BASE_PATH ?>/css/modules/totem/reset.css">
+  <link rel="stylesheet" href="<?= APP_BASE_PATH ?>/css/modules/totem/style.css">
+  <link rel="stylesheet" href="<?= APP_BASE_PATH ?>/css/modules/totem/responsive.css">
+</head>
+
+<body>
+  <main class="app">
+    <header class="topbar topbar--hidden" id="topbar">
+      <button class="icon-button hidden" id="backButton" type="button" aria-label="Voltar">
+        <i data-lucide="arrow-left"></i>
+      </button>
+
+      <div class="topbar__center">
+        <img class="topbar__logo" src="<?= APP_BASE_PATH ?>/assets/images/logos/logo-pitter-pan.png" alt="Pitter Pan Festas">
+
+        <div class="progress hidden" id="progress">
+          <span class="progress__text" id="progressText">Etapa 1 de 4</span>
+          <div class="progress__track">
+            <div class="progress__bar" id="progressBar"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="text-button hidden" id="restartButton" type="button">
+        <i data-lucide="rotate-ccw"></i>
+        Reiniciar
+      </button>
+    </header>
+
+    <!-- TELA INICIAL -->
+    <section class="screen screen--active welcome-screen" data-screen="welcome">
+      <div class="welcome-card">
+        <img class="welcome-card__logo" src="<?= APP_BASE_PATH ?>/assets/images/logos/logo-pitter-pan.png" alt="Pitter Pan Festas">
+
+        <h1>Seja Bem-Vindo</h1>
+        <p>
+          Monte seu balão de forma simples e acompanhe cada detalhe da personalização.
+        </p>
+
+        <button class="primary-button primary-button--large" id="startButton" type="button">
+          Começar
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ESCOLHA DA OCASIÃO -->
+    <section class="screen" data-screen="theme">
+      <div class="screen-heading screen-heading--theme">
+        <h2>Qual é a ocasião?</h2>
+        <p>Toque em uma opção para continuar.</p>
+      </div>
+
+      <div class="option-grid option-grid--themes" id="themeGrid"></div>
+
+      <div class="screen-actions screen-actions--theme">
+        <button class="secondary-button" data-action="back" type="button">Voltar</button>
+        <button class="primary-button" data-action="next" type="button" disabled>
+          Continuar
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ESCOLHA DO MODELO -->
+    <section class="screen" data-screen="model">
+      <div class="screen-heading">
+        <span class="eyebrow">Etapa 2</span>
+        <h2>Escolha o modelo do balão</h2>
+        <p>Toque em um modelo para visualizar o formato.</p>
+      </div>
+
+      <div class="model-layout">
+        <div class="option-grid option-grid--models" id="modelGrid"></div>
+
+        <aside class="mini-preview">
+          <span class="mini-preview__label">Prévia</span>
+          <div class="balloon-stage balloon-stage--small" id="modelPreview"></div>
+          <strong id="modelPreviewName">Escolha um modelo</strong>
+        </aside>
+      </div>
+
+      <div class="screen-actions">
+        <button class="secondary-button" data-action="back" type="button">Voltar</button>
+        <button class="primary-button" data-action="next" type="button" disabled>
+          Personalizar
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- PERSONALIZAÇÃO -->
+    <section class="screen screen--configurator" data-screen="customize">
+      <div class="configurator">
+        <div class="preview-panel">
+          <div class="preview-panel__heading">
+            <div>
+              <span class="eyebrow">Visualização em tempo real</span>
+              <h2>Seu balão</h2>
+            </div>
+
+            <button class="ghost-button" id="resetCustomization" type="button">
+              Corrigir
+            </button>
+          </div>
+
+          <div class="balloon-stage" id="balloonPreview"></div>
+
+          <p class="preview-hint">
+            A visualização é uma simulação. Tons e proporções podem variar no produto final.
+          </p>
+        </div>
+
+        <div class="controls-panel">
+          <div class="controls-panel__heading">
+            <span class="eyebrow">Etapa 3</span>
+            <h2>Personalize os detalhes</h2>
+          </div>
+
+          <div class="control-group">
+            <label for="messageInput">Texto do balão</label>
+            <textarea id="messageInput" maxlength="45" rows="3" placeholder="Ex.: Feliz aniversário, Maria!"></textarea>
+            <div class="input-meta">
+              <span>Até 45 caracteres</span>
+              <span id="characterCounter">0/45</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Fonte</span>
+            <div class="font-options" id="fontOptions"></div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Cor do balão</span>
+            <div class="color-options" id="balloonColorOptions"></div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Cor da escrita</span>
+            <div class="color-options" id="textColorOptions"></div>
+          </div>
+
+          <div class="control-group control-group--row">
+            <div>
+              <span class="control-label">Quantidade</span>
+              <span class="control-description">Balões iguais a este</span>
+            </div>
+
+            <div class="quantity-control">
+              <button id="decreaseQuantity" type="button" aria-label="Diminuir quantidade">−</button>
+              <output id="quantityOutput">1</output>
+              <button id="increaseQuantity" type="button" aria-label="Aumentar quantidade">+</button>
+            </div>
+          </div>
+
+          <div class="screen-actions screen-actions--inside">
+            <button class="secondary-button" data-action="back" type="button">Voltar</button>
+            <button class="primary-button" data-action="next" type="button">
+              Ver resumo
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMO -->
+    <section class="screen" data-screen="summary">
+      <div class="screen-heading">
+        <span class="eyebrow">Etapa 4</span>
+        <h2>Confira seu pedido</h2>
+        <p>Revise os detalhes antes de confirmar.</p>
+      </div>
+
+      <div class="summary-layout">
+        <div class="summary-preview">
+          <div class="balloon-stage balloon-stage--summary" id="summaryPreview"></div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-row">
+            <span>Ocasião</span>
+            <strong id="summaryTheme">—</strong>
+          </div>
+          <div class="summary-row">
+            <span>Modelo</span>
+            <strong id="summaryModel">—</strong>
+          </div>
+          <div class="summary-row">
+            <span>Texto</span>
+            <strong id="summaryMessage">—</strong>
+          </div>
+          <div class="summary-row">
+            <span>Fonte</span>
+            <strong id="summaryFont">—</strong>
+          </div>
+          <div class="summary-row">
+            <span>Cor do balão</span>
+            <strong id="summaryBalloonColor">—</strong>
+          </div>
+          <div class="summary-row">
+            <span>Cor da escrita</span>
+            <strong id="summaryTextColor">—</strong>
+          </div>
+          <div class="summary-row">
+            <span>Quantidade</span>
+            <strong id="summaryQuantity">1</strong>
+          </div>
+
+          <div class="summary-total">
+            <span>Valor estimado</span>
+            <strong id="summaryPrice">R$ 0,00</strong>
+          </div>
+
+          <p class="summary-note">
+            O valor é demonstrativo e pode ser ajustado conforme os preços da loja.
+          </p>
+        </div>
+      </div>
+
+      <div class="screen-actions">
+        <button class="secondary-button" data-action="back" type="button">Editar</button>
+        <button class="primary-button" id="confirmOrderButton" type="button">
+          Confirmar pedido
+          <i data-lucide="check"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- PEDIDO CONCLUÍDO -->
+    <section class="screen finish-screen" data-screen="finish">
+      <div class="finish-card">
+        <div class="success-icon">
+          <i data-lucide="check"></i>
+        </div>
+        <span class="eyebrow">Pedido realizado</span>
+        <h2>Personalização confirmada!</h2>
+        <p>Apresente esta senha no caixa para finalizar o atendimento.</p>
+
+        <div class="order-code" id="orderCode">A001</div>
+
+        <div class="finish-summary">
+          <span id="finishQuantity">1 balão</span>
+          <span>•</span>
+          <strong id="finishPrice">R$ 0,00</strong>
+        </div>
+
+        <button class="primary-button primary-button--large" id="newOrderButton" type="button">
+          Voltar ao menu
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="<?= APP_BASE_PATH ?>/js/modules/totem/data.js"></script>
+  <script src="<?= APP_BASE_PATH ?>/js/modules/totem/balloon.js"></script>
+  <script src="<?= APP_BASE_PATH ?>/js/modules/totem/app.js"></script>
+</body>
+
+</html>
